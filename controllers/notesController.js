@@ -13,8 +13,9 @@ async function getNoteById(req, res) {
     : res.status(404).json({ error: "Unknown note id" });
 }
 
-function addNote(req, res) {
-  res.status(201).json({ content: "Hello Create Note!" });
+async function addNote(req, res) {
+  const newNote = await notesModel.addNote(req.body);
+  res.status(201).json(newNote);
 }
 
 module.exports = { getNotes, getNoteById, addNote };

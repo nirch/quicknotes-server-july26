@@ -1,4 +1,5 @@
 const fs = require("fs");
+const nanoid = require("nanoid");
 
 async function getNotes() {
   const data = await fs.promises.readFile("./data/notes.json");
@@ -7,9 +8,17 @@ async function getNotes() {
 
 async function getNoteById(id) {
   const notes = await getNotes();
-  const note = notes.find(note => note.id === id);
+  const note = notes.find((note) => note.id === id);
   return note;
 }
 
+async function addNote(newNote) {
+  const notes = await getNotes();
+  newNote.id = "kjfkdjfkd";
+  newNote.date = new Date();
+  notes.push(newNote);
+  await fs.promises.writeFile("./data/notes.json", JSON.stringify(notes));
+  return newNote;
+}
 
-module.exports = { getNotes, getNoteById };
+module.exports = { getNotes, getNoteById, addNote };
