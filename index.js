@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const PORT = 8080;
+require("dotenv").config();
+const PORT = process.env.PORT ? process.env.PORT : 3000;
 const notesRouter = require("./routes/notesRoutes.js");
 
 // Middleware that parses JSON for every route
