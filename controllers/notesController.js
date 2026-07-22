@@ -1,5 +1,8 @@
-function getNotes(req, res) {
-  res.status(200).send("Hello Notes!");
+const notesModel = require("../models/notesModel.js");
+
+async function getNotes(req, res) {
+  const notes = await notesModel.getNotes();
+  res.status(200).json(notes);
 }
 
 function getNoteById(req, res) {
