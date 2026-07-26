@@ -1,5 +1,5 @@
 const fs = require("fs");
-const nanoid = require("nanoid");
+const {nanoid} = require("nanoid");
 
 async function getNotes() {
   const data = await fs.promises.readFile("./data/notes.json");
@@ -14,7 +14,7 @@ async function getNoteById(id) {
 
 async function addNote(newNote) {
   const notes = await getNotes();
-  newNote.id = "kjfkdjfkd";
+  newNote.id = nanoid(7);
   newNote.date = new Date();
   notes.push(newNote);
   await fs.promises.writeFile("./data/notes.json", JSON.stringify(notes));
