@@ -4,11 +4,12 @@ const {
   addNote,
   getNoteById,
 } = require("../controllers/notesController");
+const { noteValidation } = require("../middlewares/noteValidation");
 
 const router = express.Router();
 
 router.get("/", getNotes);
 router.get("/:id", getNoteById);
-router.post("/", addNote);
+router.post("/", noteValidation, addNote);
 
 module.exports = router;
