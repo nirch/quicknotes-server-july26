@@ -8,9 +8,11 @@ async function getNotes(req, res) {
 async function getNoteById(req, res) {
   const note = await notesModel.getNoteById(req.params.id);
 
-  note
-    ? res.status(200).json(note)
-    : res.status(404).json({ error: "Unknown note id" });
+  if (!note) {
+    throw {...new Error(), message: "Unknown note id" , status: 404}
+  }
+
+  res.status(200).json(note)
 }
 
 async function addNote(req, res) {
