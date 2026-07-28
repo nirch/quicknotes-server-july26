@@ -27,12 +27,22 @@ async function getNoteById(id) {
 }
 
 async function addNote(newNote) {
-  const notes = await getNotes();
-  newNote.id = nanoid(7);
-  newNote.date = new Date();
-  notes.push(newNote);
-  await fs.promises.writeFile("./data/notes.json", JSON.stringify(notes));
-  return newNote;
+  const query = `
+  INSERT INTO notes (title, text)
+  VALUES (:title, :text)
+  RETURNING *
+  `;
+
+  const [results, metadata] = await sequelize.query(query, {
+    replacements: {
+      title: newNote.title,
+      text: newNote.text,
+    },
+  });
+
+  console.log(metadata);
+
+  return results[0];
 }
 
 module.exports = { getNotes, getNoteById, addNote };
