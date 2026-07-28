@@ -1,7 +1,6 @@
 const fs = require("fs");
-const {nanoid} = require("nanoid");
+const { nanoid } = require("nanoid");
 const { sequelize } = require("../db/models/index.js");
-
 
 async function getNotes() {
   const [results] = await sequelize.query(`
@@ -12,9 +11,19 @@ async function getNotes() {
 }
 
 async function getNoteById(id) {
-  const notes = await getNotes();
-  const note = notes.find((note) => note.id === id);
-  return note;
+  const query = `
+  SELECT *
+  FROM notes
+  WHERE id=:id
+  `;
+
+  const [results] = await sequelize.query(query, {
+    replacements: {
+      id,
+    },
+  });
+
+  return results[0];
 }
 
 async function addNote(newNote) {
