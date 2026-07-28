@@ -1,4 +1,3 @@
-const fs = require("fs");
 const { nanoid } = require("nanoid");
 const { sequelize } = require("../db/models/index.js");
 
