@@ -3,6 +3,7 @@ const app = express();
 require("dotenv").config();
 const PORT = process.env.PORT ? process.env.PORT : 3000;
 const notesRouter = require("./routes/notesRoutes.js");
+const authRouter = require("./routes/authRoutes.js");
 const cors = require("cors");
 const { logger } = require("./middlewares/logger.js");
 const { sequelize } = require("./db/models/index.js");
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(logger);
 
 app.use("/notes", notesRouter);
+app.use("/auth", authRouter);
 
 app.get("/", async (req, res) => {
   const [results, metadata] = await sequelize.query("SELECT * FROM test_connection");
