@@ -1,4 +1,5 @@
 const authModel = require("../models/authModel.js");
+const jwt = require("jsonwebtoken");
 
 async function login(req, res, next) {
   try {
@@ -13,7 +14,9 @@ async function login(req, res, next) {
       throw { status: 401, message: "invalid email or password" };
     }
 
-    res.send(user);
+    const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "24h" });
+
+    res.status(200).json({ user, token });
   } catch (err) {
     next(err);
   }
