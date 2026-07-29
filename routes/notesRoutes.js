@@ -13,6 +13,6 @@ const router = express.Router();
 router.get("/", authenticate, getNotes);
 router.get("/orm", getNotesORM);
 router.get("/:id", getNoteById);
-router.post("/", noteValidation, addNote);
+router.post("/", authenticate, noteValidation, addNote);
 
 module.exports = router;
