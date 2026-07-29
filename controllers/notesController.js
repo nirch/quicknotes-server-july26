@@ -3,7 +3,8 @@ const notesModel = require("../models/notesModel.js");
 const { Note } = sequelize.models;
 
 async function getNotes(req, res) {
-  const notes = await notesModel.getNotes();
+  const userId = req.user.id;
+  const notes = await notesModel.getNotes(userId);
   res.status(200).json(notes);
 }
 
