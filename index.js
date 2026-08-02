@@ -17,8 +17,6 @@ app.use("/notes", notesRouter);
 app.use("/auth", authRouter);
 
 app.get("/", async (req, res) => {
-  const [results, metadata] = await sequelize.query("SELECT * FROM test_connection");
-  console.log(results);
   res.send("Hello Express");
 });
 
@@ -31,10 +29,6 @@ app.get("/demo", (req, res) => {
   console.log("Body:", req.body); // Needs body parser
   res.send("Check console for request data");
 });
-
-// app.get("*", (req, res) => {
-//   res.status(404).send("Page not found");
-// });
 
 // Error Handling middleware - always in the END
 app.use((err, req, res, next) => {
