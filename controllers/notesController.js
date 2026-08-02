@@ -24,7 +24,11 @@ async function getNoteById(req, res) {
 }
 
 async function addNote(req, res) {
-  const newNote = await notesModel.addNote(req.body, req.user.id);
+  const newNote = await notesModel.addNote(
+    req.body,
+    req.user.id,
+    req.file ? req.file.path : null,
+  );
   res.status(201).json(newNote);
 }
 

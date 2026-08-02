@@ -12,6 +12,7 @@ const { sequelize } = require("./db/models/index.js");
 app.use(cors());
 app.use(express.json());
 app.use(logger);
+app.use(express.static("public"));    // Exposes the public folder
 
 app.use("/notes", notesRouter);
 app.use("/auth", authRouter);
