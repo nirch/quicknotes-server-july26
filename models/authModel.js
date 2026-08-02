@@ -12,7 +12,7 @@ async function login(email, password) {
   });
   const user = results[0];
 
-  if (user && bcrypt.compare(password, user.password)) {
+  if (user && await bcrypt.compare(password, user.password)) {
     const { password: _, ...userNoPassword } = user;
     return userNoPassword;
   }
